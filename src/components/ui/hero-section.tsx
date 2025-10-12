@@ -3,6 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Scale, Crown, Star } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { ImageCarousel } from "@/components/ui/image-carousel";
+import { AutoVideo } from "@/components/ui/auto-video";
 import heroBackground from "@/assets/hero-background.jpg";
 
 export const HeroSection = () => {
@@ -74,13 +75,7 @@ export const HeroSection = () => {
           }`}
         >
           <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-2xl overflow-hidden shadow-glow border border-border/50">
-            <iframe
-              src="https://www.youtube.com/embed/r7Nz-mFGa8w?autoplay=1&loop=1&playlist=r7Nz-mFGa8w&controls=0&modestbranding=1&playsinline=1&vq=hd1080"
-              title="Apresentação do App"
-              className="absolute inset-0 w-full h-full"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
+            <AutoVideo videoId="r7Nz-mFGa8w" />
           </div>
         </div>
 
