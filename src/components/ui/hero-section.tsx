@@ -66,10 +66,27 @@ export const HeroSection = () => {
           </p>
         </div>
 
-        {/* Price Highlight */}
+        {/* Video Presentation */}
         <div 
           ref={priceRef}
-          className={`transition-all duration-700 delay-300 ${
+          className={`transition-all duration-700 delay-300 mb-6 ${
+            priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
+          }`}
+        >
+          <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-2xl overflow-hidden shadow-glow border border-border/50">
+            <iframe
+              src="https://www.youtube.com/embed/r7Nz-mFGa8w?autoplay=1&mute=1&loop=1&playlist=r7Nz-mFGa8w&controls=0&modestbranding=1&playsinline=1"
+              title="Apresentação do App"
+              className="absolute inset-0 w-full h-full"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            />
+          </div>
+        </div>
+
+        {/* Price Highlight */}
+        <div 
+          className={`transition-all duration-700 delay-400 ${
             priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
           }`}
         >
@@ -97,7 +114,7 @@ export const HeroSection = () => {
         {/* CTA Button */}
         <div
           ref={ctaRef}
-          className={`transition-all duration-700 delay-500 ${
+          className={`transition-all duration-700 delay-600 ${
             ctaInView ? 'animate-fade-in hover-scale' : 'opacity-0 translate-y-4'
           }`}
         >

@@ -45,7 +45,7 @@ const features = [
   },
   {
     icon: Library,
-    title: "400+ Livros",
+    title: "800+ Livros",
     description: "Biblioteca completa",
     highlight: "Premium"
   },
@@ -120,24 +120,21 @@ export const FeaturesSection = () => {
             return (
               <Card 
                 key={index} 
-                className={`bg-gradient-card border-border/50 hover:border-gold/30 transition-all duration-300 group relative hover-scale ${
+                className={`bg-gradient-card border-border/50 hover:border-gold/30 transition-all duration-300 group hover-scale ${
                   gridInView ? 'animate-fade-in' : ''
                 }`}
                 style={{
                   animationDelay: gridInView ? `${index * 100}ms` : '0ms'
                 }}
               >
-                <CardContent className="p-4 text-center">
-                  <Badge className="absolute -top-2 -right-2 text-xs bg-gold text-background">
-                    {feature.highlight}
-                  </Badge>
-                  <div className={`inline-flex p-2 rounded-lg mb-3 border transition-all duration-300 group-hover:scale-110 ${getColorClasses(index)}`}>
-                    <Icon className="h-5 w-5" />
+                <CardContent className="p-6 text-center">
+                  <div className={`inline-flex p-3 rounded-xl mb-4 border-2 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg ${getColorClasses(index)}`}>
+                    <Icon className="h-6 w-6" />
                   </div>
-                  <h3 className="font-semibold text-foreground mb-1 text-sm">
+                  <h3 className="font-bold text-foreground mb-2 text-base">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground text-xs">
+                  <p className="text-muted-foreground text-sm">
                     {feature.description}
                   </p>
                 </CardContent>
@@ -154,7 +151,7 @@ export const FeaturesSection = () => {
           }`}
         >
           <div>
-            <div className="text-2xl font-bold text-gold">400+</div>
+            <div className="text-2xl font-bold text-gold">800+</div>
             <div className="text-xs text-muted-foreground">Livros</div>
           </div>
           <div>
