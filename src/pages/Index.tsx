@@ -4,7 +4,7 @@ import { ComparisonTable } from "@/components/ui/comparison-table";
 import { TestimonialsSection } from "@/components/ui/testimonials-section";
 import { CTASection } from "@/components/ui/cta-section";
 import { Footer } from "@/components/ui/footer";
-import { WhatsappButton } from "@/components/ui/whatsapp-button";
+
 
 const Index = () => {
   return (
@@ -15,7 +15,7 @@ const Index = () => {
       <TestimonialsSection />
       <CTASection />
       <Footer />
-      <WhatsappButton />
+      
     </div>
   );
 };

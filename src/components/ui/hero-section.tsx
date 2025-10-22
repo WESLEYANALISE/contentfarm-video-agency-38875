@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { Scale, Crown, Star } from "lucide-react";
 import { useInView } from "@/hooks/use-in-view";
 import { ImageCarousel } from "@/components/ui/image-carousel";
-import { AutoVideo } from "@/components/ui/auto-video";
+
 import heroBackground from "@/assets/hero-background.jpg";
 
 export const HeroSection = () => {
@@ -67,17 +67,6 @@ export const HeroSection = () => {
           </p>
         </div>
 
-        {/* Video Presentation */}
-        <div 
-          ref={priceRef}
-          className={`transition-all duration-700 delay-300 mb-6 ${
-            priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
-          }`}
-        >
-          <div className="relative w-full max-w-sm mx-auto aspect-[9/16] rounded-2xl overflow-hidden shadow-glow border border-border/50">
-            <AutoVideo videoId="r7Nz-mFGa8w" />
-          </div>
-        </div>
 
         {/* Price Highlight */}
         <div 
