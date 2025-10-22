@@ -22,7 +22,7 @@ export const ComparisonTable = () => {
   const [freeRef, freeInView] = useInView({ threshold: 0.2 });
 
   return (
-    <section className="py-16 px-4 bg-gradient-to-b from-background to-card/20">
+    <section id="comparison-section" className="py-16 px-4 bg-gradient-to-b from-background to-card/20">
       <div className="max-w-4xl mx-auto">
         {/* Section Header */}
         <div 

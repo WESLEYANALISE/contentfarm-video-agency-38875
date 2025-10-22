@@ -4,6 +4,7 @@ import { ComparisonTable } from "@/components/ui/comparison-table";
 import { TestimonialsSection } from "@/components/ui/testimonials-section";
 import { CTASection } from "@/components/ui/cta-section";
 import { Footer } from "@/components/ui/footer";
+import { ChatAssistant } from "@/components/ui/chat-assistant";
 
 
 const Index = () => {
@@ -15,7 +16,7 @@ const Index = () => {
       <TestimonialsSection />
       <CTASection />
       <Footer />
-      
+      <ChatAssistant />
     </div>
   );
 };
