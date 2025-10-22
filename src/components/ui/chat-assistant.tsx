@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { X, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import assistantAvatar from "@/assets/assistant-avatar.jpg";
@@ -20,6 +20,9 @@ export const ChatAssistant = () => {
   const [currentStep, setCurrentStep] = useState<ConversationStep>("initial");
   const [userType, setUserType] = useState<UserType>(null);
   const [inputValue, setInputValue] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   // Show bubble after 4 seconds
   useEffect(() => {
@@ -28,6 +31,13 @@ export const ChatAssistant = () => {
     }, 4000);
     return () => clearTimeout(timer);
   }, []);
+
+  // Scroll to bottom when messages change
+  useEffect(() => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages, isTyping]);
 
   const addMessage = (text: string, isUser: boolean = false, buttons?: { text: string; action: string }[]) => {
     const newMessage: Message = {
@@ -39,26 +49,40 @@ export const ChatAssistant = () => {
     setMessages((prev) => [...prev, newMessage]);
   };
 
-  const handleOpenChat = () => {
+  const addMessageWithTyping = async (text: string, isUser: boolean = false, buttons?: { text: string; action: string }[], delay: number = 800) => {
+    if (!isUser) {
+      setIsTyping(true);
+      await new Promise(resolve => setTimeout(resolve, delay));
+      setIsTyping(false);
+    }
+    addMessage(text, isUser, buttons);
+  };
+
+  const handleOpenChat = async () => {
     setIsOpen(true);
     setShowBubble(false);
     if (messages.length === 0) {
-      setTimeout(() => {
-        addMessage("Olá! 👋 Sou a assistente do Direito Premium.", false);
-        setTimeout(() => {
-          addMessage("Antes de começar, me conta: você é o quê?", false, [
-            { text: "👨‍⚖️ Advogado", action: "advogado" },
-            { text: "📚 Estudante", action: "estudante" },
-            { text: "📝 Concurseiro", action: "concurseiro" },
-            { text: "🔍 Outros", action: "outros" },
-          ]);
-          setCurrentStep("userType");
-        }, 1000);
-      }, 500);
+      await addMessageWithTyping("Olá! 👋 Sou a assistente do Direito Premium.", false, undefined, 500);
+      await addMessageWithTyping("Gostaria de ver as vantagens do Premium?", false, [
+        { text: "🎁 Ver vantagens Premium", action: "benefits" },
+        { text: "💬 Não, quero conversar", action: "chat" },
+      ], 1000);
+      setCurrentStep("initial");
     }
   };
 
-  const handleUserTypeSelection = (type: UserType) => {
+  const handleStartChat = async () => {
+    addMessage("💬 Não, quero conversar", true);
+    await addMessageWithTyping("Antes de começar, me conta: você é o quê?", false, [
+      { text: "👨‍⚖️ Advogado", action: "advogado" },
+      { text: "📚 Estudante", action: "estudante" },
+      { text: "📝 Concurseiro", action: "concurseiro" },
+      { text: "🔍 Outros", action: "outros" },
+    ], 800);
+    setCurrentStep("userType");
+  };
+
+  const handleUserTypeSelection = async (type: UserType) => {
     setUserType(type);
     
     const userTypeLabels = {
@@ -70,79 +94,72 @@ export const ChatAssistant = () => {
     
     addMessage(userTypeLabels[type!], true);
 
-    setTimeout(() => {
-      let responseText = "";
-      let painPoint = "";
-      let solution = "";
+    let responseText = "";
+    let painPoint = "";
+    let solution = "";
 
-      switch (type) {
-        case "advogado":
-          painPoint = "Sabemos que como advogado, você precisa de acesso rápido a legislações, jurisprudências e doutrinas para fundamentar suas petições e pareceres. Perder tempo procurando informações pode custar casos importantes.";
-          solution = "Com o Direito Premium, você tem acesso ILIMITADO a mais de 800 livros jurídicos, todas as leis atualizadas, jurisprudências organizadas e ferramentas de busca avançada. Tudo isso no seu bolso, disponível offline!";
-          responseText = `Perfeito! ${painPoint}\n\n✨ ${solution}`;
-          break;
-        case "estudante":
-          painPoint = "Como estudante de Direito, você sabe que o material de estudo é caro e muitas vezes difícil de acessar. Livros custam centenas de reais e nem sempre estão disponíveis na biblioteca.";
-          solution = "O Direito Premium te dá acesso a uma biblioteca completa com mais de 800 livros dos melhores autores, resumos, mapas mentais e conteúdo organizado por disciplina. Por menos que o preço de UM livro, você tem TODOS!";
-          responseText = `Entendi! ${painPoint}\n\n📚 ${solution}`;
-          break;
-        case "concurseiro":
-          painPoint = "Sabemos que a preparação para concursos exige acesso constante a legislações atualizadas, questões comentadas e materiais de revisão. Carregar vários livros é impraticável.";
-          solution = "Com o Direito Premium, você estuda em qualquer lugar com acesso offline a toda legislação, doutrinas dos principais autores, questões comentadas e materiais otimizados para concursos. Sua aprovação na palma da mão!";
-          responseText = `Ótimo! ${painPoint}\n\n🎯 ${solution}`;
-          break;
-        case "outros":
-          painPoint = "Seja qual for sua área de atuação no Direito, ter acesso rápido e confiável a informações jurídicas é essencial para tomar decisões corretas.";
-          solution = "O Direito Premium oferece uma plataforma completa com legislação, doutrina, jurisprudência e ferramentas práticas que vão facilitar seu dia a dia jurídico, tudo em um só lugar!";
-          responseText = `Entendo! ${painPoint}\n\n💼 ${solution}`;
-          break;
-      }
+    switch (type) {
+      case "advogado":
+        painPoint = "Sabemos que como advogado, você precisa de acesso rápido a legislações, jurisprudências e doutrinas para fundamentar suas petições e pareceres. Perder tempo procurando informações pode custar casos importantes.";
+        solution = "Com o Direito Premium, você tem acesso ILIMITADO a mais de 800 livros jurídicos, todas as leis atualizadas, jurisprudências organizadas e ferramentas de busca avançada. Tudo isso no seu bolso, disponível offline!";
+        responseText = `Perfeito! ${painPoint}\n\n✨ ${solution}`;
+        break;
+      case "estudante":
+        painPoint = "Como estudante de Direito, você sabe que o material de estudo é caro e muitas vezes difícil de acessar. Livros custam centenas de reais e nem sempre estão disponíveis na biblioteca.";
+        solution = "O Direito Premium te dá acesso a uma biblioteca completa com mais de 800 livros dos melhores autores, resumos, mapas mentais e conteúdo organizado por disciplina. Por menos que o preço de UM livro, você tem TODOS!";
+        responseText = `Entendi! ${painPoint}\n\n📚 ${solution}`;
+        break;
+      case "concurseiro":
+        painPoint = "Sabemos que a preparação para concursos exige acesso constante a legislações atualizadas, questões comentadas e materiais de revisão. Carregar vários livros é impraticável.";
+        solution = "Com o Direito Premium, você estuda em qualquer lugar com acesso offline a toda legislação, doutrinas dos principais autores, questões comentadas e materiais otimizados para concursos. Sua aprovação na palma da mão!";
+        responseText = `Ótimo! ${painPoint}\n\n🎯 ${solution}`;
+        break;
+      case "outros":
+        painPoint = "Seja qual for sua área de atuação no Direito, ter acesso rápido e confiável a informações jurídicas é essencial para tomar decisões corretas.";
+        solution = "O Direito Premium oferece uma plataforma completa com legislação, doutrina, jurisprudência e ferramentas práticas que vão facilitar seu dia a dia jurídico, tudo em um só lugar!";
+        responseText = `Entendo! ${painPoint}\n\n💼 ${solution}`;
+        break;
+    }
 
-      addMessage(responseText, false);
-      
-      setTimeout(() => {
-        addMessage("O que você gostaria de saber?", false, [
-          { text: "🎁 Ver vantagens Premium", action: "benefits" },
-          { text: "❓ Tirar dúvidas", action: "faq" },
-        ]);
-        setCurrentStep("benefits");
-      }, 1500);
-    }, 800);
+    await addMessageWithTyping(responseText, false, undefined, 1200);
+    await addMessageWithTyping("O que você gostaria de saber?", false, [
+      { text: "🎁 Ver vantagens Premium", action: "benefits" },
+      { text: "❓ Tirar dúvidas", action: "faq" },
+    ], 1000);
+    setCurrentStep("benefits");
   };
 
-  const handleBenefitsView = () => {
+  const handleBenefitsView = async () => {
     addMessage("🎁 Ver vantagens Premium", true);
     
-    setTimeout(() => {
-      addMessage("Perfeito! Vou te mostrar tudo que você ganha com o Premium. 🚀", false);
-      
-      setTimeout(() => {
-        const comparisonSection = document.getElementById("comparison-section");
-        if (comparisonSection) {
-          comparisonSection.scrollIntoView({ behavior: "smooth", block: "start" });
-          setIsOpen(false);
-        }
-      }, 1000);
-    }, 500);
+    await addMessageWithTyping("Perfeito! Vou te mostrar tudo que você ganha com o Premium. 🚀", false, undefined, 800);
+    
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const comparisonSection = document.getElementById("comparison-section");
+    if (comparisonSection) {
+      setIsOpen(false);
+      // Small delay to ensure chat closes before scrolling
+      await new Promise(resolve => setTimeout(resolve, 300));
+      comparisonSection.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
   };
 
-  const showFAQ = () => {
+  const showFAQ = async () => {
     addMessage("❓ Tirar dúvidas", true);
     
-    setTimeout(() => {
-      addMessage("Claro! Aqui estão as principais dúvidas:", false, [
-        { text: "💰 Qual o valor?", action: "price" },
-        { text: "📱 Funciona offline?", action: "offline" },
-        { text: "📚 Quantos livros tem?", action: "books" },
-        { text: "🔄 Tem mensalidade?", action: "subscription" },
-        { text: "✅ Como funciona a garantia?", action: "guarantee" },
-        { text: "⬅️ Voltar", action: "back" },
-      ]);
-      setCurrentStep("faq");
-    }, 500);
+    await addMessageWithTyping("Claro! Aqui estão as principais dúvidas:", false, [
+      { text: "💰 Qual o valor?", action: "price" },
+      { text: "📱 Funciona offline?", action: "offline" },
+      { text: "📚 Quantos livros tem?", action: "books" },
+      { text: "🔄 Tem mensalidade?", action: "subscription" },
+      { text: "✅ Como funciona a garantia?", action: "guarantee" },
+      { text: "⬅️ Voltar", action: "back" },
+    ], 800);
+    setCurrentStep("faq");
   };
 
-  const handleFAQAnswer = (question: string) => {
+  const handleFAQAnswer = async (question: string) => {
     const faqButtons = [
       { text: "💰 Qual o valor?", action: "price" },
       { text: "📱 Funciona offline?", action: "offline" },
@@ -156,62 +173,54 @@ export const ChatAssistant = () => {
       addMessage(selectedButton.text, true);
     }
 
-    setTimeout(() => {
-      let answer = "";
-      
-      switch (question) {
-        case "price":
-          answer = "O Direito Premium custa apenas R$ 39,90 em pagamento ÚNICO! 🎉\n\nIsso mesmo, você paga UMA VEZ e usa para sempre. Sem mensalidades, sem taxas extras. É menos que o preço de um único livro jurídico!";
-          break;
-        case "offline":
-          answer = "SIM! ✅ Funciona 100% OFFLINE!\n\nVocê baixa todo o conteúdo e pode acessar em qualquer lugar, mesmo sem internet. Perfeito para estudar no metrô, em áreas sem sinal ou economizar dados móveis.";
-          break;
-        case "books":
-          answer = "São mais de 800 LIVROS dos melhores autores! 📚\n\nIncluindo obras de:\n• Direito Civil\n• Direito Penal\n• Direito Constitucional\n• Direito Administrativo\n• Direito do Trabalho\n• E muito mais!\n\nTudo organizado por área para você encontrar facilmente.";
-          break;
-        case "subscription":
-          answer = "NÃO tem mensalidade! 🚫💳\n\nÉ pagamento ÚNICO de R$ 39,90 e você tem acesso VITALÍCIO. Pague uma vez e use para sempre. Sem surpresas na fatura!";
-          break;
-        case "guarantee":
-          answer = "Você tem 7 DIAS DE GARANTIA! ✅\n\nSe por qualquer motivo você não gostar, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia. Testamos nossa confiança no produto!";
-          break;
-        case "back":
-          addMessage("⬅️ Voltar", true);
-          setTimeout(() => {
-            addMessage("O que mais posso te ajudar?", false, [
-              { text: "🎁 Ver vantagens Premium", action: "benefits" },
-              { text: "❓ Tirar dúvidas", action: "faq" },
-            ]);
-          }, 500);
-          return;
-      }
+    let answer = "";
+    
+    switch (question) {
+      case "price":
+        answer = "O Direito Premium custa apenas R$ 39,90 em pagamento ÚNICO! 🎉\n\nIsso mesmo, você paga UMA VEZ e usa para sempre. Sem mensalidades, sem taxas extras. É menos que o preço de um único livro jurídico!";
+        break;
+      case "offline":
+        answer = "SIM! ✅ Funciona 100% OFFLINE!\n\nVocê baixa todo o conteúdo e pode acessar em qualquer lugar, mesmo sem internet. Perfeito para estudar no metrô, em áreas sem sinal ou economizar dados móveis.";
+        break;
+      case "books":
+        answer = "São mais de 800 LIVROS dos melhores autores! 📚\n\nIncluindo obras de:\n• Direito Civil\n• Direito Penal\n• Direito Constitucional\n• Direito Administrativo\n• Direito do Trabalho\n• E muito mais!\n\nTudo organizado por área para você encontrar facilmente.";
+        break;
+      case "subscription":
+        answer = "NÃO tem mensalidade! 🚫💳\n\nÉ pagamento ÚNICO de R$ 39,90 e você tem acesso VITALÍCIO. Pague uma vez e use para sempre. Sem surpresas na fatura!";
+        break;
+      case "guarantee":
+        answer = "Você tem 7 DIAS DE GARANTIA! ✅\n\nSe por qualquer motivo você não gostar, devolvemos 100% do seu dinheiro. Sem perguntas, sem burocracia. Testamos nossa confiança no produto!";
+        break;
+      case "back":
+        addMessage("⬅️ Voltar", true);
+        await addMessageWithTyping("O que mais posso te ajudar?", false, [
+          { text: "🎁 Ver vantagens Premium", action: "benefits" },
+          { text: "❓ Tirar dúvidas", action: "faq" },
+        ], 800);
+        return;
+    }
 
-      addMessage(answer, false);
-      
-      setTimeout(() => {
-        addMessage("Posso te ajudar com mais alguma coisa?", false, [
-          { text: "❓ Outra dúvida", action: "faq" },
-          { text: "🎁 Ver vantagens", action: "benefits" },
-          { text: "📲 Quero o Premium!", action: "download" },
-        ]);
-      }, 1500);
-    }, 500);
+    await addMessageWithTyping(answer, false, undefined, 1200);
+    await addMessageWithTyping("Posso te ajudar com mais alguma coisa?", false, [
+      { text: "❓ Outra dúvida", action: "faq" },
+      { text: "🎁 Ver vantagens", action: "benefits" },
+      { text: "📲 Quero o Premium!", action: "download" },
+    ], 1000);
   };
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     addMessage("📲 Quero o Premium!", true);
     
-    setTimeout(() => {
-      addMessage("Excelente decisão! 🎉 Você está a um passo de ter toda biblioteca jurídica no seu bolso!", false);
-      
-      setTimeout(() => {
-        window.open('https://play.google.com/store/apps/details?id=br.com.app.gpu2994564.gpub492f9e6db037057aaa93d7adfa9e3e0', '_blank');
-      }, 1000);
-    }, 500);
+    await addMessageWithTyping("Excelente decisão! 🎉 Você está a um passo de ter toda biblioteca jurídica no seu bolso!", false, undefined, 800);
+    
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    window.open('https://play.google.com/store/apps/details?id=br.com.app.gpu2994564.gpub492f9e6db037057aaa93d7adfa9e3e0', '_blank');
   };
 
   const handleButtonClick = (action: string) => {
-    if (action === "advogado" || action === "estudante" || action === "concurseiro" || action === "outros") {
+    if (action === "chat") {
+      handleStartChat();
+    } else if (action === "advogado" || action === "estudante" || action === "concurseiro" || action === "outros") {
       handleUserTypeSelection(action as UserType);
     } else if (action === "benefits") {
       handleBenefitsView();
@@ -289,7 +298,7 @@ export const ChatAssistant = () => {
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-4">
+          <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.map((message) => (
               <div
                 key={message.id}
@@ -319,6 +328,18 @@ export const ChatAssistant = () => {
                 </div>
               </div>
             ))}
+            {isTyping && (
+              <div className="flex justify-start animate-fade-in">
+                <div className="bg-muted rounded-2xl p-3 max-w-[80%]">
+                  <div className="flex gap-1">
+                    <div className="w-2 h-2 bg-foreground/40 rounded-full animate-bounce" style={{ animationDelay: "0ms" }} />
+                    <div className="w-2 h-2 bg-foreground/40 rounded-full animate-bounce" style={{ animationDelay: "150ms" }} />
+                    <div className="w-2 h-2 bg-foreground/40 rounded-full animate-bounce" style={{ animationDelay: "300ms" }} />
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
           </div>
 
           {/* Input (disabled for now as we use buttons) */}
