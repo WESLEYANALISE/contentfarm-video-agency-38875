@@ -232,20 +232,20 @@ export const ChatAssistant = () => {
           className="fixed bottom-32 right-6 z-50 animate-fade-in cursor-pointer"
           onClick={handleOpenChat}
         >
-          <div className="bg-card border border-border rounded-2xl p-4 shadow-glow max-w-xs relative">
+          <div className="bg-white dark:bg-white border border-gray-200 rounded-2xl p-4 shadow-glow max-w-xs relative">
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 setShowBubble(false);
               }}
-              className="absolute -top-2 -right-2 bg-background border border-border rounded-full p-1 hover:bg-muted transition-colors"
+              className="absolute -top-2 -right-2 bg-gray-100 border border-gray-200 rounded-full p-1 hover:bg-gray-200 transition-colors"
             >
-              <X className="h-3 w-3" />
+              <X className="h-3 w-3 text-gray-600" />
             </button>
-            <p className="text-sm text-foreground">
+            <p className="text-sm text-gray-800 font-medium">
               Você tem alguma dúvida sobre a versão Premium? 💬
             </p>
-            <div className="absolute -bottom-2 right-8 w-4 h-4 bg-card border-r border-b border-border transform rotate-45" />
+            <div className="absolute -bottom-2 right-8 w-4 h-4 bg-white border-r border-b border-gray-200 transform rotate-45" />
           </div>
         </div>
       )}
@@ -268,7 +268,7 @@ export const ChatAssistant = () => {
 
       {/* Chat Window */}
       {isOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-96 h-[600px] bg-card border border-border rounded-2xl shadow-glow flex flex-col animate-scale-in overflow-hidden">
+        <div className="fixed inset-0 md:inset-auto md:bottom-6 md:right-6 z-50 md:w-96 md:h-[600px] bg-card border-0 md:border md:border-border md:rounded-2xl shadow-glow flex flex-col animate-scale-in overflow-hidden">
           {/* Header */}
           <div className="bg-gradient-premium p-4 flex items-center gap-3">
             <img

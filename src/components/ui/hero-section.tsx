@@ -70,6 +70,7 @@ export const HeroSection = () => {
 
         {/* Price Highlight */}
         <div 
+          ref={priceRef}
           className={`transition-all duration-700 delay-400 ${
             priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
           }`}
