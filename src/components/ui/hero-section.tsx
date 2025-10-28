@@ -67,6 +67,8 @@ export const HeroSection = () => {
           </p>
         </div>
 
+        {/* Image Carousel */}
+        <ImageCarousel />
 
         {/* Price Highlight */}
         <div 
@@ -120,9 +122,6 @@ export const HeroSection = () => {
             ✅ 7 dias de garantia • Cancele quando quiser
           </p>
         </div>
-
-        {/* Image Carousel */}
-        <ImageCarousel />
       </div>
     </section>
   );
