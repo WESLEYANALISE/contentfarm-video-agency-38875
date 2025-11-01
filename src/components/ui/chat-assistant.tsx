@@ -124,6 +124,7 @@ export const ChatAssistant = () => {
     await addMessageWithTyping(responseText, false, undefined, 1200);
     await addMessageWithTyping("O que você gostaria de saber?", false, [
       { text: "🎁 Ver vantagens Premium", action: "benefits" },
+      { text: "💰 Quanto custa?", action: "pricing" },
       { text: "❓ Tirar dúvidas", action: "faq" },
     ], 1000);
     setCurrentStep("benefits");
@@ -132,16 +133,32 @@ export const ChatAssistant = () => {
   const handleBenefitsView = async () => {
     addMessage("🎁 Ver vantagens Premium", true);
     
-    await addMessageWithTyping("Perfeito! Vou te mostrar tudo que você ganha com o Premium. 🚀", false, undefined, 800);
+    await addMessageWithTyping("Perfeito! Vou te mostrar todas as vantagens do Premium. 🚀", false, undefined, 800);
     
     await new Promise(resolve => setTimeout(resolve, 800));
     
-    const comparisonSection = document.getElementById("comparison-section");
-    if (comparisonSection) {
+    const featuresSection = document.getElementById("features-section");
+    if (featuresSection) {
       setIsOpen(false);
       // Small delay to ensure chat closes before scrolling
       await new Promise(resolve => setTimeout(resolve, 300));
-      comparisonSection.scrollIntoView({ behavior: "smooth", block: "center" });
+      featuresSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const handlePricingView = async () => {
+    addMessage("💰 Quanto custa?", true);
+    
+    await addMessageWithTyping("Ótima pergunta! Vou te mostrar nosso investimento único. 💎", false, undefined, 800);
+    
+    await new Promise(resolve => setTimeout(resolve, 800));
+    
+    const priceSection = document.getElementById("price-section");
+    if (priceSection) {
+      setIsOpen(false);
+      // Small delay to ensure chat closes before scrolling
+      await new Promise(resolve => setTimeout(resolve, 300));
+      priceSection.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
@@ -224,6 +241,8 @@ export const ChatAssistant = () => {
       handleUserTypeSelection(action as UserType);
     } else if (action === "benefits") {
       handleBenefitsView();
+    } else if (action === "pricing") {
+      handlePricingView();
     } else if (action === "faq") {
       showFAQ();
     } else if (action === "download") {

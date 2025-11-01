@@ -63,42 +63,14 @@ export const HeroSection = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-foreground/80 mb-6">
-            Aplicativo jurídico completo para sua aprovação
+            Tudo que você precisa para ser aprovado em um só lugar
           </p>
         </div>
 
         {/* Image Carousel */}
         <ImageCarousel />
 
-        {/* Price Highlight */}
-        <div 
-          ref={priceRef}
-          className={`transition-all duration-700 delay-400 ${
-            priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
-          }`}
-        >
-          <div className="bg-card/90 backdrop-blur-sm rounded-xl p-4 mb-6 border border-border shadow-card max-w-xs mx-auto">
-            <div className="flex items-center justify-center gap-2 mb-1">
-              <span className="text-muted-foreground line-through text-sm">R$ 79,90</span>
-              <Badge className="bg-destructive text-destructive-foreground text-xs">50% OFF</Badge>
-            </div>
-            <div className="text-3xl font-bold text-gold">R$ 39,90</div>
-            <p className="text-xs text-muted-foreground">pagamento único</p>
-            <p className="text-xs text-gold font-medium mt-1">🔥 Sem mensalidade!</p>
-          </div>
-
-          {/* Trust indicators */}
-          <div className="flex items-center justify-center gap-4 mb-6 text-sm text-muted-foreground">
-            <div className="flex items-center gap-1">
-              <Star className="h-4 w-4 fill-gold text-gold" />
-              <span>4.8/5</span>
-            </div>
-            <div className="w-px h-4 bg-border" />
-            <div>50k+ usuários</div>
-          </div>
-        </div>
-
-        {/* CTA Button */}
+        {/* CTA Button - Descobrir Vantagens */}
         <div
           ref={ctaRef}
           className={`transition-all duration-700 delay-600 ${
@@ -109,18 +81,25 @@ export const HeroSection = () => {
             size="lg" 
             className="bg-gradient-premium hover:bg-gradient-premium/90 text-background font-semibold px-8 py-3 text-lg shadow-gold transition-all duration-300 hover:shadow-glow hover:scale-105 w-full max-w-sm"
             onClick={() => {
-              console.log('Botão clicado - redirecionando para:', 'https://play.google.com/store/apps/details?id=br.com.app.gpu2994564.gpub492f9e6db037057aaa93d7adfa9e3e0');
-              window.open('https://play.google.com/store/apps/details?id=br.com.app.gpu2994564.gpub492f9e6db037057aaa93d7adfa9e3e0', '_blank');
+              const featuresSection = document.getElementById('features-section');
+              featuresSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
           >
-            <Crown className="h-5 w-5 mr-2" />
-            Baixar Versão Premium
+            <Star className="h-5 w-5 mr-2" />
+            Descobrir Vantagens Exclusivas
           </Button>
 
-          {/* Guarantee */}
-          <p className="mt-4 text-sm text-muted-foreground">
-            ✅ 7 dias de garantia • Cancele quando quiser
-          </p>
+          {/* Trust indicators */}
+          <div className="flex items-center justify-center gap-4 mt-6 text-sm text-muted-foreground">
+            <div className="flex items-center gap-1">
+              <Star className="h-4 w-4 fill-gold text-gold" />
+              <span>4.8/5</span>
+            </div>
+            <div className="w-px h-4 bg-border" />
+            <div>50k+ usuários</div>
+            <div className="w-px h-4 bg-border" />
+            <div>98% aprovação</div>
+          </div>
         </div>
       </div>
     </section>

@@ -1,27 +1,17 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useInView } from "@/hooks/use-in-view";
-import carousel1 from "@/assets/carousel-1.jpg";
-import carousel2 from "@/assets/carousel-2.jpg";
-import carousel3 from "@/assets/carousel-3.jpg";
-import carousel4 from "@/assets/carousel-4.jpg";
-import carousel5 from "@/assets/carousel-5.jpg";
-import carousel6 from "@/assets/carousel-6.jpg";
-import carousel7 from "@/assets/carousel-7.jpg";
-import carousel8 from "@/assets/carousel-8.jpg";
-import carousel9 from "@/assets/carousel-9.jpg";
-import carousel10 from "@/assets/carousel-10.jpg";
 
 const carouselImages = [
-  { src: carousel1, alt: "Funcionalidade 1 do aplicativo Direito Premium" },
-  { src: carousel2, alt: "Funcionalidade 2 do aplicativo Direito Premium" },
-  { src: carousel3, alt: "Funcionalidade 3 do aplicativo Direito Premium" },
-  { src: carousel4, alt: "Funcionalidade 4 do aplicativo Direito Premium" },
-  { src: carousel5, alt: "Funcionalidade 5 do aplicativo Direito Premium" },
-  { src: carousel6, alt: "Funcionalidade 6 do aplicativo Direito Premium" },
-  { src: carousel7, alt: "Funcionalidade 7 do aplicativo Direito Premium" },
-  { src: carousel8, alt: "Funcionalidade 8 do aplicativo Direito Premium" },
-  { src: carousel9, alt: "Funcionalidade 9 do aplicativo Direito Premium" },
-  { src: carousel10, alt: "Funcionalidade 10 do aplicativo Direito Premium" },
+  { src: "/carousel/image-1.png", alt: "Vade Mecum 2025 atualizado - Direito Premium" },
+  { src: "/carousel/image-2.png", alt: "Assistente IA 24/7 - Direito Premium" },
+  { src: "/carousel/image-3.png", alt: "800+ Livros de Direito - Direito Premium" },
+  { src: "/carousel/image-4.png", alt: "30.000+ Modelos de Petições - Direito Premium" },
+  { src: "/carousel/image-5.png", alt: "500+ Videoaulas em HD - Direito Premium" },
+  { src: "/carousel/image-6.png", alt: "8.000+ Flashcards inteligentes - Direito Premium" },
+  { src: "/carousel/image-7.png", alt: "Simulados OAB completos - Direito Premium" },
+  { src: "/carousel/image-8.png", alt: "Acesso Desktop e Mobile - Direito Premium" },
+  { src: "/carousel/image-9.png", alt: "Mapas mentais interativos - Direito Premium" },
+  { src: "/carousel/image-10.png", alt: "Suporte prioritário 24/7 - Direito Premium" },
 ];
 
 export const ImageCarousel = () => {
