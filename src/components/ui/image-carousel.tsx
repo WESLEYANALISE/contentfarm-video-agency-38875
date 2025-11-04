@@ -20,8 +20,8 @@ export const ImageCarousel = () => {
   return (
     <div 
       ref={carouselRef}
-      className={`mt-8 transition-all duration-700 ${
-        carouselInView ? 'animate-fade-in' : 'opacity-0 translate-y-4'
+      className={`mt-10 transition-all duration-1000 ${
+        carouselInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'
       }`}
     >
       <Carousel 
@@ -34,12 +34,12 @@ export const ImageCarousel = () => {
         <CarouselContent className="-ml-2 md:-ml-4">
           {carouselImages.map((image, index) => (
             <CarouselItem key={index} className="pl-2 md:pl-4 basis-[45%] md:basis-[40%]">
-              <div className="h-full">
-                <div className="bg-card rounded-2xl overflow-hidden shadow-card border border-border hover-scale">
+              <div className="h-full group">
+                <div className="bg-card rounded-2xl overflow-hidden shadow-card border border-border transition-all duration-500 hover:shadow-glow hover:scale-105 hover:border-gold/30">
                   <img 
                     src={image.src} 
                     alt={image.alt}
-                    className="w-full h-64 md:h-80 object-cover"
+                    className="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110"
                     onError={(e) => {
                       e.currentTarget.src = '/placeholder.svg';
                     }}
@@ -49,8 +49,8 @@ export const ImageCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-0 md:left-4" />
-        <CarouselNext className="right-0 md:right-4" />
+        <CarouselPrevious className="left-0 md:left-4 transition-all duration-300 hover:scale-110 hover:shadow-glow" />
+        <CarouselNext className="right-0 md:right-4 transition-all duration-300 hover:scale-110 hover:shadow-glow" />
       </Carousel>
     </div>
   );
