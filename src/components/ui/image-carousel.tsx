@@ -2,16 +2,16 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useInView } from "@/hooks/use-in-view";
 
 const carouselImages = [
-  { src: "/carousel/image-1.png", alt: "Vade Mecum 2025 atualizado - Direito Premium" },
-  { src: "/carousel/image-2.png", alt: "Assistente IA 24/7 - Direito Premium" },
-  { src: "/carousel/image-3.png", alt: "800+ Livros de Direito - Direito Premium" },
-  { src: "/carousel/image-4.png", alt: "30.000+ Modelos de Petições - Direito Premium" },
-  { src: "/carousel/image-5.png", alt: "500+ Videoaulas em HD - Direito Premium" },
-  { src: "/carousel/image-6.png", alt: "8.000+ Flashcards inteligentes - Direito Premium" },
-  { src: "/carousel/image-7.png", alt: "Simulados OAB completos - Direito Premium" },
-  { src: "/carousel/image-8.png", alt: "Acesso Desktop e Mobile - Direito Premium" },
-  { src: "/carousel/image-9.png", alt: "Mapas mentais interativos - Direito Premium" },
-  { src: "/carousel/image-10.png", alt: "Suporte prioritário 24/7 - Direito Premium" },
+  { src: "https://i.imgur.com/WdP210U.png", alt: "Vade Mecum 2025 atualizado - Direito Premium" },
+  { src: "https://i.imgur.com/4Vf057o.png", alt: "Assistente IA 24/7 - Direito Premium" },
+  { src: "https://i.imgur.com/YU58tf1.png", alt: "800+ Livros de Direito - Direito Premium" },
+  { src: "https://i.imgur.com/iDI069M.png", alt: "30.000+ Modelos de Petições - Direito Premium" },
+  { src: "https://i.imgur.com/FIyDNcN.png", alt: "500+ Videoaulas em HD - Direito Premium" },
+  { src: "https://i.imgur.com/G5jftqy.png", alt: "8.000+ Flashcards inteligentes - Direito Premium" },
+  { src: "https://i.imgur.com/8Mmfq25.png", alt: "Simulados OAB completos - Direito Premium" },
+  { src: "https://i.imgur.com/vkdv3u9.png", alt: "Acesso Desktop e Mobile - Direito Premium" },
+  { src: "https://i.imgur.com/jVfLsvU.png", alt: "Mapas mentais interativos - Direito Premium" },
+  { src: "https://i.imgur.com/FEQZRnc.png", alt: "Suporte prioritário 24/7 - Direito Premium" },
 ];
 
 export const ImageCarousel = () => {
@@ -40,6 +40,9 @@ export const ImageCarousel = () => {
                     src={image.src} 
                     alt={image.alt}
                     className="w-full h-64 md:h-80 object-cover"
+                    onError={(e) => {
+                      e.currentTarget.src = '/placeholder.svg';
+                    }}
                   />
                 </div>
               </div>
