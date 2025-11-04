@@ -38,7 +38,7 @@ export const CTASection = () => {
           }}
         >
           <Crown className="h-5 w-5 mr-2" />
-          Garantir Minha Vaga Premium Agora
+          Garantir acesso agora
         </Button>
         
         <p className="text-sm text-gold font-medium mb-2">

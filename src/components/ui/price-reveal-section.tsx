@@ -89,7 +89,7 @@ export const PriceRevealSection = () => {
               }}
             >
               <Crown className="h-6 w-6 mr-2" />
-              Garantir Acesso Premium Agora
+              Garantir acesso agora
             </Button>
 
             {/* Guarantee */}
