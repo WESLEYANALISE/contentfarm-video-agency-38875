@@ -1,5 +1,6 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useInView } from "@/hooks/use-in-view";
+import Autoplay from "embla-carousel-autoplay";
 
 const carouselImages = [
   { src: "https://i.imgur.com/WdP210U.png", alt: "Vade Mecum 2025 atualizado - Direito Premium" },
@@ -29,17 +30,27 @@ export const ImageCarousel = () => {
         opts={{
           align: "start",
           loop: true,
+          skipSnaps: false,
+          dragFree: true,
         }}
+        plugins={[
+          Autoplay({
+            delay: 4000,
+            stopOnInteraction: true,
+            stopOnMouseEnter: true,
+          })
+        ]}
       >
         <CarouselContent className="-ml-2 md:-ml-4">
           {carouselImages.map((image, index) => (
-            <CarouselItem key={index} className="pl-2 md:pl-4 basis-[45%] md:basis-[40%]">
+            <CarouselItem key={index} className="pl-2 md:pl-4 basis-[85%] sm:basis-[60%] md:basis-[45%]">
               <div className="h-full group">
-                <div className="bg-card rounded-2xl overflow-hidden shadow-card border border-border transition-all duration-500 hover:shadow-glow hover:scale-105 hover:border-gold/30">
+                <div className="bg-card rounded-2xl overflow-hidden shadow-card border border-border transition-all duration-500 hover:shadow-glow hover:scale-105 hover:border-gold/30 h-[400px] md:h-[450px] flex items-center justify-center p-2">
                   <img 
                     src={image.src} 
                     alt={image.alt}
-                    className="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105"
+                    loading="lazy"
                     onError={(e) => {
                       e.currentTarget.src = '/placeholder.svg';
                     }}
