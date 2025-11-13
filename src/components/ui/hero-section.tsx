@@ -76,15 +76,15 @@ export const HeroSection = () => {
         >
           <div className="inline-block bg-gradient-card border-2 border-gold/30 rounded-2xl p-6 shadow-gold hover:shadow-glow transition-all duration-300 hover:scale-105">
             <Badge className="mb-3 bg-destructive text-destructive-foreground font-bold text-sm px-3 py-1 animate-pulse">
-              50% OFF - OFERTA LIMITADA
+              60% OFF - OFERTA LIMITADA
             </Badge>
             
             <div className="flex items-center justify-center gap-3 mb-2">
               <span className="text-xl text-muted-foreground line-through">
-                R$ 199,90
+                R$ 99,99
               </span>
               <div className="text-5xl md:text-6xl font-bold bg-gradient-premium bg-clip-text text-transparent">
-                R$ 99,90
+                R$ 39,99
               </div>
             </div>
             

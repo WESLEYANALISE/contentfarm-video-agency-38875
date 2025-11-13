@@ -7,7 +7,6 @@ import { TestimonialsSection } from "@/components/ui/testimonials-section";
 import { PriceRevealSection } from "@/components/ui/price-reveal-section";
 import { CTASection } from "@/components/ui/cta-section";
 import { Footer } from "@/components/ui/footer";
-import { ChatAssistant } from "@/components/ui/chat-assistant";
 
 
 const Index = () => {
@@ -44,7 +43,6 @@ const Index = () => {
       <PriceRevealSection />
       <CTASection />
       <Footer />
-      <ChatAssistant />
     </div>
   );
 };
