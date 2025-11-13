@@ -62,34 +62,69 @@ export const HeroSection = () => {
             Direito Premium
           </h1>
           
-          <p className="text-lg md:text-xl text-foreground/80 mb-8 leading-relaxed">
+          <p className="text-lg md:text-xl text-foreground/80 mb-6 leading-relaxed">
             Tudo que você precisa para ser aprovado em um só lugar
           </p>
+        </div>
+
+        {/* Price Highlight */}
+        <div
+          ref={priceRef}
+          className={`mb-8 transition-all duration-700 delay-500 ${
+            priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
+          }`}
+        >
+          <div className="inline-block bg-gradient-card border-2 border-gold/30 rounded-2xl p-6 shadow-gold hover:shadow-glow transition-all duration-300 hover:scale-105">
+            <Badge className="mb-3 bg-destructive text-destructive-foreground font-bold text-sm px-3 py-1 animate-pulse">
+              50% OFF - OFERTA LIMITADA
+            </Badge>
+            
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <span className="text-xl text-muted-foreground line-through">
+                R$ 199,90
+              </span>
+              <div className="text-5xl md:text-6xl font-bold bg-gradient-premium bg-clip-text text-transparent">
+                R$ 99,90
+              </div>
+            </div>
+            
+            <p className="text-sm text-foreground/70 mb-4">
+              Pagamento único • Acesso vitalício
+            </p>
+            
+            <Button 
+              size="lg" 
+              className="w-full bg-gold hover:bg-gold-light text-background font-bold shadow-gold hover:shadow-glow transition-all duration-300 hover:scale-105"
+              onClick={() => window.open('https://play.google.com/store/apps/details?id=com.direitopremium.app', '_blank')}
+            >
+              Garantir acesso agora
+            </Button>
+          </div>
         </div>
 
         {/* Image Carousel */}
         <ImageCarousel />
 
-        {/* CTA Button - Descobrir Vantagens */}
+        {/* CTA Button - Ver Vantagens */}
         <div
           ref={ctaRef}
-          className={`mt-16 transition-all duration-700 delay-700 ${
+          className={`mt-12 transition-all duration-700 delay-700 ${
             ctaInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'
           }`}
         >
           <Button 
+            variant="outline"
             size="lg" 
-            className="group relative bg-gradient-premium hover:bg-gradient-premium/90 text-background font-semibold px-8 py-6 text-lg shadow-gold transition-all duration-500 hover:shadow-glow hover:scale-110 w-full max-w-md animate-in"
+            className="group relative border-2 border-gold/50 bg-background/10 hover:bg-gold/10 text-gold font-semibold px-8 py-4 text-base shadow-card transition-all duration-300 hover:shadow-glow hover:scale-105 w-full max-w-md backdrop-blur-sm"
             onClick={() => {
               const featuresSection = document.getElementById('features-section');
               featuresSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
           >
             <span className="relative z-10 flex items-center justify-center">
-              <Star className="h-5 w-5 mr-2 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110" />
-              Descobrir Vantagens Exclusivas
+              <Star className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
+              Ver todas as vantagens
             </span>
-            <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-gold/0 via-white/20 to-gold/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
           </Button>
 
           {/* Trust indicators */}

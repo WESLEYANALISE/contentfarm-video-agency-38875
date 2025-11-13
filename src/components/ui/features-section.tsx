@@ -132,18 +132,18 @@ export const FeaturesSection = () => {
         {/* Section Header */}
         <div 
           ref={headerRef}
-          className={`text-center mb-12 transition-all duration-700 ${
+          className={`text-center mb-16 transition-all duration-700 ${
             headerInView ? 'animate-fade-in' : 'opacity-0 translate-y-4'
           }`}
         >
-          <Badge className="mb-3 bg-gold/10 text-gold border-gold/30">
-            RECURSOS PREMIUM
+          <Badge className="mb-4 bg-gold/10 text-gold border-gold/30 text-base px-4 py-2">
+            ✨ RECURSOS PREMIUM
           </Badge>
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 bg-gradient-premium bg-clip-text text-transparent">
-            Tudo em uma plataforma
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-premium bg-clip-text text-transparent leading-tight">
+            Tudo o que você precisa para ser aprovado
           </h2>
-          <p className="text-foreground/70 max-w-2xl mx-auto">
-            Ferramentas completas para estudantes, advogados e concurseiros
+          <p className="text-lg text-foreground/70 max-w-2xl mx-auto leading-relaxed">
+            12 ferramentas poderosas em uma única plataforma. Material completo para estudantes, concurseiros e advogados.
           </p>
         </div>
 
@@ -159,31 +159,31 @@ export const FeaturesSection = () => {
             return (
               <Card 
                 key={index} 
-                className={`bg-gradient-card border-border/50 hover:border-gold/30 transition-all duration-300 group hover-scale ${
+                className={`bg-gradient-card border-2 border-border/50 hover:border-gold/40 transition-all duration-300 group hover:shadow-glow hover:scale-105 ${
                   gridInView ? 'animate-fade-in' : ''
                 }`}
                 style={{
                   animationDelay: gridInView ? `${index * 50}ms` : '0ms'
                 }}
               >
-                <CardContent className="p-6">
-                  <div className="flex items-start gap-4">
-                    <div className={`flex-shrink-0 p-3 rounded-xl border-2 transition-all duration-300 group-hover:scale-110 group-hover:shadow-lg ${getColorClasses(index)}`}>
-                      <Icon className="h-6 w-6" />
+                <CardContent className="p-7">
+                  <div className="flex items-start gap-5">
+                    <div className={`flex-shrink-0 p-4 rounded-2xl border-2 transition-all duration-300 group-hover:scale-110 group-hover:shadow-glow ${getColorClasses(index)}`}>
+                      <Icon className="h-7 w-7" />
                     </div>
                     <div className="flex-1">
-                      <div className="flex items-center gap-2 mb-2">
-                        <h3 className="font-bold text-foreground text-base">
+                      <div className="flex items-center gap-2 mb-3">
+                        <h3 className="font-bold text-foreground text-lg">
                           {feature.title}
                         </h3>
-                        <Badge variant="outline" className="text-xs border-gold/30 text-gold">
+                        <Badge variant="outline" className="text-xs border-gold/30 text-gold bg-gold/5 px-2 py-0.5">
                           {feature.highlight}
                         </Badge>
                       </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed mb-2">
+                      <p className="text-muted-foreground text-sm leading-relaxed mb-3">
                         {feature.description}
                       </p>
-                      <div className="text-gold font-semibold text-sm">
+                      <div className="text-gold font-bold text-base">
                         {feature.stats}
                       </div>
                     </div>
@@ -197,21 +197,21 @@ export const FeaturesSection = () => {
         {/* Quick Stats */}
         <div 
           ref={statsRef}
-          className={`grid grid-cols-3 gap-4 mt-8 text-center transition-all duration-700 delay-500 ${
+          className={`grid grid-cols-3 gap-6 mt-12 transition-all duration-700 delay-500 ${
             statsInView ? 'animate-scale-in' : 'opacity-0 scale-95'
           }`}
         >
-          <div>
-            <div className="text-2xl font-bold text-gold">800+</div>
-            <div className="text-xs text-muted-foreground">Livros</div>
+          <div className="bg-gradient-card border border-border/50 rounded-xl p-6 hover:border-gold/30 transition-all duration-300 hover:scale-105 hover:shadow-glow">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-premium bg-clip-text text-transparent mb-2">800+</div>
+            <div className="text-sm text-foreground/70 font-medium">Livros Jurídicos</div>
           </div>
-          <div>
-            <div className="text-2xl font-bold text-gold">30k+</div>
-            <div className="text-xs text-muted-foreground">Petições</div>
+          <div className="bg-gradient-card border border-border/50 rounded-xl p-6 hover:border-gold/30 transition-all duration-300 hover:scale-105 hover:shadow-glow">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-premium bg-clip-text text-transparent mb-2">30k+</div>
+            <div className="text-sm text-foreground/70 font-medium">Modelos de Petições</div>
           </div>
-          <div>
-            <div className="text-2xl font-bold text-gold">98%</div>
-            <div className="text-xs text-muted-foreground">Aprovação</div>
+          <div className="bg-gradient-card border border-border/50 rounded-xl p-6 hover:border-gold/30 transition-all duration-300 hover:scale-105 hover:shadow-glow">
+            <div className="text-3xl md:text-4xl font-bold bg-gradient-premium bg-clip-text text-transparent mb-2">98%</div>
+            <div className="text-sm text-foreground/70 font-medium">Taxa de Aprovação</div>
           </div>
         </div>
       </div>
