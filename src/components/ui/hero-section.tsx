@@ -13,124 +13,96 @@ export const HeroSection = () => {
   const [ctaRef, ctaInView] = useInView({ threshold: 0.2 });
 
   return (
-    <section className="relative py-16 px-4 text-center bg-gradient-hero overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 to-background" />
+    <section className="relative py-20 px-4 text-center overflow-hidden">
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-card/10 to-background" />
       
       {/* Desktop background */}
       <div 
-        className="absolute top-0 left-0 right-0 bg-cover bg-center bg-no-repeat opacity-20 hidden sm:block"
+        className="absolute top-0 left-0 right-0 bg-cover bg-center bg-no-repeat opacity-10 hidden sm:block"
         style={{ 
           backgroundImage: `url(${heroBackground})`,
-          height: '60%'
+          height: '50%'
         }}
       />
       
       {/* Mobile background - Justice statue */}
       <div 
-        className="absolute top-0 left-0 right-0 bg-cover bg-center bg-no-repeat opacity-25 sm:hidden"
+        className="absolute top-0 left-0 right-0 bg-cover bg-center bg-no-repeat opacity-15 sm:hidden"
         style={{ 
           backgroundImage: `url('/lovable-uploads/319c8e83-3d9c-4ad2-882e-a95a63e15498.png')`,
-          height: '60%'
+          height: '50%'
         }}
       />
       
-      <div className="relative z-10 max-w-3xl mx-auto">
+      <div className="relative z-10 max-w-4xl mx-auto">
         {/* Logo and Badge */}
         <div 
           ref={logoRef}
-          className={`flex items-center justify-center gap-3 mb-6 transition-all duration-700 ${
+          className={`flex items-center justify-center gap-3 mb-8 transition-all duration-700 ${
             logoInView ? 'animate-fade-in' : 'opacity-0 translate-y-4'
           }`}
         >
-          <div className="p-2 bg-gradient-premium rounded-lg shadow-gold hover-scale transition-all duration-300 hover:shadow-glow">
-            <Scale className="h-6 w-6 text-background" />
+          <div className="p-3 bg-card/40 backdrop-blur-sm rounded-xl border border-gold/20 hover-scale transition-all duration-300">
+            <Scale className="h-7 w-7 text-gold" />
           </div>
-          <Badge variant="outline" className="px-3 py-1.5 text-gold border-gold/30 bg-background/20 text-sm hover-scale transition-all duration-300">
-            <Crown className="h-3 w-3 mr-1" />
-            PREMIUM
-          </Badge>
         </div>
 
-        {/* Main Title */}
+        {/* Rhetorical Question - Pain Point */}
         <div
           ref={titleRef}
-          className={`transition-all duration-700 delay-300 ${
+          className={`transition-all duration-700 delay-200 ${
             titleInView ? 'animate-fade-in' : 'opacity-0 translate-y-4'
           }`}
         >
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-premium bg-clip-text text-transparent leading-tight hover:scale-105 transition-transform duration-500">
-            Direito Premium
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight max-w-3xl mx-auto">
+            Cansado de procurar material de estudo espalhado por aí?
           </h1>
           
-          <p className="text-lg md:text-xl text-foreground/80 mb-6 leading-relaxed">
-            Tudo que você precisa para ser aprovado em um só lugar
+          <p className="text-lg md:text-2xl text-foreground/70 mb-4 leading-relaxed max-w-2xl mx-auto">
+            Você está perdendo tempo precioso com conteúdos desorganizados e desatualizados...
+          </p>
+
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+            Enquanto isso, outros estão usando um único lugar que reúne <span className="text-gold font-semibold">tudo</span> o que você precisa para ser aprovado.
           </p>
         </div>
 
-        {/* Price Highlight */}
+        {/* Image Carousel */}
         <div
           ref={priceRef}
-          className={`mb-8 transition-all duration-700 delay-500 ${
+          className={`mt-16 mb-12 transition-all duration-700 delay-400 ${
             priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
           }`}
         >
-          <div className="inline-block bg-gradient-card border-2 border-gold/30 rounded-2xl p-6 shadow-gold hover:shadow-glow transition-all duration-300 hover:scale-105">
-            <Badge className="mb-3 bg-destructive text-destructive-foreground font-bold text-sm px-3 py-1 animate-pulse">
-              60% OFF - OFERTA LIMITADA
-            </Badge>
-            
-            <div className="flex items-center justify-center gap-3 mb-2">
-              <span className="text-xl text-muted-foreground line-through">
-                R$ 99,99
-              </span>
-              <div className="text-5xl md:text-6xl font-bold bg-gradient-premium bg-clip-text text-transparent">
-                R$ 39,99
-              </div>
-            </div>
-            
-            <p className="text-sm text-foreground/70 mb-4">
-              Pagamento único • Acesso vitalício
-            </p>
-            
-            <Button 
-              size="lg" 
-              className="w-full bg-gold hover:bg-gold-light text-background font-bold shadow-gold hover:shadow-glow transition-all duration-300 hover:scale-105"
-              onClick={() => window.open('https://play.google.com/store/apps/details?id=com.direitopremium.app', '_blank')}
-            >
-              Garantir acesso agora
-            </Button>
-          </div>
+          <ImageCarousel />
         </div>
-
-        {/* Image Carousel */}
-        <ImageCarousel />
 
         {/* CTA Button - Ver Vantagens */}
         <div
           ref={ctaRef}
-          className={`mt-12 transition-all duration-700 delay-700 ${
+          className={`transition-all duration-700 delay-600 ${
             ctaInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'
           }`}
         >
           <Button 
             variant="outline"
             size="lg" 
-            className="group relative border-2 border-gold/50 bg-background/10 hover:bg-gold/10 text-gold font-semibold px-8 py-4 text-base shadow-card transition-all duration-300 hover:shadow-glow hover:scale-105 w-full max-w-md backdrop-blur-sm"
+            className="group relative border-2 border-gold/50 bg-card/30 backdrop-blur-sm hover:bg-gold/10 text-gold font-semibold px-8 py-6 text-base md:text-lg shadow-card transition-all duration-300 hover:shadow-glow hover:scale-105 w-full max-w-md"
             onClick={() => {
               const featuresSection = document.getElementById('features-section');
               featuresSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
           >
             <span className="relative z-10 flex items-center justify-center">
-              <Star className="h-4 w-4 mr-2 transition-transform duration-300 group-hover:rotate-12" />
+              <Star className="h-5 w-5 mr-2 transition-transform duration-300 group-hover:rotate-12" />
               Ver todas as vantagens
             </span>
           </Button>
 
           {/* Trust indicators */}
-          <div className="flex flex-wrap items-center justify-center gap-4 mt-8 text-sm text-muted-foreground animate-fade-in delay-1000">
+          <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 mt-8 text-sm text-muted-foreground">
             <div className="flex items-center gap-1 transition-transform duration-300 hover:scale-110">
-              <Star className="h-4 w-4 fill-gold text-gold animate-pulse" />
+              <Star className="h-4 w-4 fill-gold text-gold" />
               <span className="font-semibold">4.8/5</span>
             </div>
             <div className="w-px h-4 bg-border" />
