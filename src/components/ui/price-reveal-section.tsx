@@ -49,15 +49,15 @@ export const PriceRevealSection = () => {
             {/* Price Comparison */}
             <div className="mb-6">
               <div className="flex items-center justify-center gap-3 mb-2">
-                <span className="text-2xl text-muted-foreground line-through">R$ 99,99</span>
+                <span className="text-2xl text-muted-foreground line-through">R$ 79,90</span>
                 <Badge className="bg-destructive text-destructive-foreground text-sm px-3 py-1">
-                  60% OFF - OFERTA LIMITADA
+                  50% OFF
                 </Badge>
               </div>
               
               <div className="relative">
                 <div className="text-6xl font-bold text-gold mb-2 animate-pulse">
-                  R$ 39,99
+                  R$ 39,90
                 </div>
                 <div className="absolute -top-2 -right-2">
                   <div className="bg-destructive text-destructive-foreground text-xs font-bold px-2 py-1 rounded-full animate-bounce">

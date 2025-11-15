@@ -71,28 +71,28 @@ export const InteractiveQuiz = ({ onComplete }: QuizProps) => {
   const question = questions[currentQuestion];
 
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-6">
-      <div className="max-w-xl w-full">
+    <div className="min-h-screen bg-background flex items-center justify-center px-4 py-12">
+      <div className="max-w-2xl w-full">
         {/* Header */}
-        <div className="text-center mb-6 animate-fade-in">
-          <Badge className="mb-3 bg-gold/10 text-gold border-gold/30 text-sm px-3 py-1">
+        <div className="text-center mb-8 animate-fade-in">
+          <Badge className="mb-4 bg-gold/10 text-gold border-gold/30 text-lg px-4 py-1">
             DIREITO PREMIUM
           </Badge>
-          <h1 className="text-2xl md:text-3xl font-bold mb-2 bg-gradient-premium bg-clip-text text-transparent">
+          <h1 className="text-3xl md:text-4xl font-bold mb-3 bg-gradient-premium bg-clip-text text-transparent">
             Descubra como podemos te ajudar
           </h1>
-          <p className="text-sm text-foreground/70">
-            3 perguntas rápidas
+          <p className="text-foreground/70">
+            Responda 3 perguntas rápidas para personalizar sua experiência
           </p>
         </div>
 
         {/* Progress Bar */}
-        <div className="mb-6 animate-fade-in delay-200">
-          <div className="flex justify-between text-xs text-foreground/60 mb-2">
+        <div className="mb-8 animate-fade-in delay-200">
+          <div className="flex justify-between text-sm text-foreground/60 mb-2">
             <span>Pergunta {currentQuestion + 1} de {questions.length}</span>
             <span>{Math.round(progress)}%</span>
           </div>
-          <div className="h-1.5 bg-secondary rounded-full overflow-hidden">
+          <div className="h-2 bg-secondary rounded-full overflow-hidden">
             <div 
               className="h-full bg-gradient-premium transition-all duration-500 ease-out"
               style={{ width: `${progress}%` }}
@@ -103,14 +103,14 @@ export const InteractiveQuiz = ({ onComplete }: QuizProps) => {
         {/* Question Card */}
         <Card 
           key={currentQuestion}
-          className="bg-card/80 backdrop-blur-sm border-border/40 shadow-lg animate-scale-in"
+          className="bg-gradient-card border-border/50 shadow-card animate-scale-in"
         >
-          <CardContent className="p-6">
-            <h2 className="text-xl font-bold text-center mb-6 text-foreground">
+          <CardContent className="p-8">
+            <h2 className="text-2xl font-bold text-center mb-8 text-foreground">
               {question.question}
             </h2>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
               {question.options.map((option, index) => {
                 const Icon = option.icon;
                 const isSelected = selectedOption === index;
@@ -121,13 +121,13 @@ export const InteractiveQuiz = ({ onComplete }: QuizProps) => {
                     onClick={() => handleAnswer(index)}
                     disabled={selectedOption !== null}
                     className={`
-                      w-full p-4 rounded-xl border-2 transition-all duration-300
-                      flex items-center gap-3 group
+                      w-full p-6 rounded-xl border-2 transition-all duration-300
+                      flex items-center gap-4 group
                       ${isSelected 
-                        ? 'bg-gold/10 border-gold scale-[1.02] shadow-glow' 
-                        : 'bg-card/50 border-border/50 hover:border-gold/30 hover:scale-[1.02] hover:shadow-md'
+                        ? `bg-${option.color}/20 border-${option.color} scale-105 shadow-glow` 
+                        : 'bg-card border-border/50 hover:border-gold/30 hover:scale-105 hover:shadow-glow'
                       }
-                      ${selectedOption !== null && !isSelected ? 'opacity-40' : ''}
+                      ${selectedOption !== null && !isSelected ? 'opacity-50' : ''}
                       disabled:cursor-not-allowed
                     `}
                     style={{
@@ -135,21 +135,21 @@ export const InteractiveQuiz = ({ onComplete }: QuizProps) => {
                     }}
                   >
                     <div className={`
-                      p-3 rounded-lg transition-all duration-300
+                      p-4 rounded-lg transition-all duration-300
                       ${isSelected 
-                        ? 'bg-gold text-background' 
-                        : 'bg-secondary/50 group-hover:bg-gold/20'
+                        ? `bg-${option.color} text-background` 
+                        : 'bg-secondary group-hover:bg-gold/20'
                       }
                     `}>
-                      <Icon className="h-5 w-5" />
+                      <Icon className="h-6 w-6" />
                     </div>
                     
-                    <span className="text-base font-medium text-foreground flex-1 text-left">
+                    <span className="text-lg font-medium text-foreground flex-1 text-left">
                       {option.label}
                     </span>
 
                     {isSelected && (
-                      <CheckCircle2 className="h-5 w-5 text-gold animate-scale-in" />
+                      <CheckCircle2 className="h-6 w-6 text-gold animate-scale-in" />
                     )}
                   </button>
                 );
@@ -159,8 +159,8 @@ export const InteractiveQuiz = ({ onComplete }: QuizProps) => {
         </Card>
 
         {/* Footer */}
-        <div className="text-center mt-4 text-xs text-foreground/60 animate-fade-in delay-300">
-          ✨ Personalizando sua experiência
+        <div className="text-center mt-6 text-sm text-foreground/60 animate-fade-in delay-300">
+          ✨ Suas respostas nos ajudam a personalizar sua experiência
         </div>
       </div>
     </div>
