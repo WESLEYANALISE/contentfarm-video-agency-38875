@@ -7,13 +7,16 @@ import { ImageCarousel } from "@/components/ui/image-carousel";
 import heroBackground from "@/assets/hero-background.jpg";
 
 export const HeroSection = () => {
-  const [logoRef, logoInView] = useInView({ threshold: 0.2 });
-  const [titleRef, titleInView] = useInView({ threshold: 0.2 });
-  const [priceRef, priceInView] = useInView({ threshold: 0.2 });
-  const [ctaRef, ctaInView] = useInView({ threshold: 0.2 });
+  const [logoRef, logoInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const [titleRef, titleInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const [priceRef, priceInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const [ctaRef, ctaInView] = useInView({ threshold: 0.2, triggerOnce: true });
 
   return (
     <section className="relative py-20 px-4 text-center overflow-hidden">
+      {/* Preload critical images */}
+      <link rel="preload" as="image" href={heroBackground} />
+      
       <div className="absolute inset-0 bg-gradient-to-b from-background via-card/10 to-background" />
       
       {/* Desktop background */}
@@ -38,31 +41,31 @@ export const HeroSection = () => {
         {/* Logo and Badge */}
         <div 
           ref={logoRef}
-          className={`flex items-center justify-center gap-3 mb-8 transition-all duration-700 ${
-            logoInView ? 'animate-fade-in' : 'opacity-0 translate-y-4'
+          className={`flex items-center justify-center gap-3 mb-8 transition-all duration-1000 ${
+            logoInView ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-8'
           }`}
         >
-          <div className="p-3 bg-card/40 backdrop-blur-sm rounded-xl border border-gold/20 hover-scale transition-all duration-300">
-            <Scale className="h-7 w-7 text-gold" />
+          <div className="p-3 bg-card/40 backdrop-blur-sm rounded-xl border border-gold/20 hover-scale transition-all duration-300 shadow-gold">
+            <Scale className="h-7 w-7 text-gold animate-pulse" />
           </div>
         </div>
 
         {/* Rhetorical Question - Pain Point */}
         <div
           ref={titleRef}
-          className={`transition-all duration-700 delay-200 ${
-            titleInView ? 'animate-fade-in' : 'opacity-0 translate-y-4'
+          className={`transition-all duration-1000 delay-300 ${
+            titleInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6 text-foreground leading-tight max-w-3xl mx-auto animate-fade-in">
             Cansado de procurar material de estudo espalhado por aí?
           </h1>
           
-          <p className="text-lg md:text-2xl text-foreground/70 mb-4 leading-relaxed max-w-2xl mx-auto">
+          <p className="text-lg md:text-2xl text-foreground/70 mb-4 leading-relaxed max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '200ms' }}>
             Você está perdendo tempo precioso com conteúdos desorganizados e desatualizados...
           </p>
 
-          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto animate-fade-in" style={{ animationDelay: '400ms' }}>
             Enquanto isso, outros estão usando um único lugar que reúne <span className="text-gold font-semibold">tudo</span> o que você precisa para ser aprovado.
           </p>
         </div>
@@ -70,8 +73,8 @@ export const HeroSection = () => {
         {/* Image Carousel */}
         <div
           ref={priceRef}
-          className={`mt-16 mb-12 transition-all duration-700 delay-400 ${
-            priceInView ? 'animate-scale-in' : 'opacity-0 scale-95'
+          className={`mt-16 mb-12 transition-all duration-1000 delay-700 ${
+            priceInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'
           }`}
         >
           <ImageCarousel />
@@ -80,14 +83,14 @@ export const HeroSection = () => {
         {/* CTA Button - Ver Vantagens */}
         <div
           ref={ctaRef}
-          className={`transition-all duration-700 delay-600 ${
-            ctaInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'
+          className={`transition-all duration-1000 delay-1000 ${
+            ctaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
           <Button 
             variant="outline"
             size="lg" 
-            className="group relative border-2 border-gold/50 bg-card/30 backdrop-blur-sm hover:bg-gold/10 text-gold font-semibold px-8 py-6 text-base md:text-lg shadow-card transition-all duration-300 hover:shadow-glow hover:scale-105 w-full max-w-md"
+            className="group relative border-2 border-gold/50 bg-card/30 backdrop-blur-sm hover:bg-gold/10 text-gold font-semibold px-8 py-6 text-base md:text-lg shadow-card transition-all duration-500 hover:shadow-glow hover:scale-110 w-full max-w-md animate-pulse"
             onClick={() => {
               const featuresSection = document.getElementById('features-section');
               featuresSection?.scrollIntoView({ behavior: 'smooth', block: 'start' });
