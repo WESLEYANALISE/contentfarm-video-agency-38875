@@ -1,5 +1,6 @@
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 import { useInView } from "@/hooks/use-in-view";
+import { useState } from "react";
 
 const carouselImages = [
   { src: "https://i.imgur.com/WdP210U.png", alt: "Vade Mecum 2025 atualizado - Direito Premium" },
@@ -15,13 +16,18 @@ const carouselImages = [
 ];
 
 export const ImageCarousel = () => {
-  const [carouselRef, carouselInView] = useInView({ threshold: 0.2 });
+  const [carouselRef, carouselInView] = useInView({ threshold: 0.2, triggerOnce: true });
+  const [loadedImages, setLoadedImages] = useState<Set<number>>(new Set());
+
+  const handleImageLoad = (index: number) => {
+    setLoadedImages(prev => new Set(prev).add(index));
+  };
 
   return (
     <div 
       ref={carouselRef}
       className={`mt-10 transition-all duration-1000 ${
-        carouselInView ? 'animate-fade-in' : 'opacity-0 translate-y-8'
+        carouselInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
       }`}
     >
       <Carousel 
@@ -35,13 +41,21 @@ export const ImageCarousel = () => {
           {carouselImages.map((image, index) => (
             <CarouselItem key={index} className="pl-2 md:pl-4 basis-[45%] md:basis-[40%]">
               <div className="h-full group">
-                <div className="bg-card rounded-2xl overflow-hidden shadow-card border border-border transition-all duration-500 hover:shadow-glow hover:scale-105 hover:border-gold/30">
+                <div className="bg-card rounded-2xl overflow-hidden shadow-card border border-border transition-all duration-500 hover:shadow-glow hover:scale-105 hover:border-gold/30 relative">
+                  {!loadedImages.has(index) && (
+                    <div className="absolute inset-0 animate-pulse bg-gradient-to-r from-muted/10 via-muted/20 to-muted/10 z-10" />
+                  )}
                   <img 
                     src={image.src} 
                     alt={image.alt}
-                    className="w-full h-64 md:h-80 object-cover transition-transform duration-700 group-hover:scale-110"
+                    loading="lazy"
+                    className={`w-full h-64 md:h-80 object-cover transition-all duration-700 group-hover:scale-110 ${
+                      loadedImages.has(index) ? 'opacity-100' : 'opacity-0'
+                    }`}
+                    onLoad={() => handleImageLoad(index)}
                     onError={(e) => {
                       e.currentTarget.src = '/placeholder.svg';
+                      handleImageLoad(index);
                     }}
                   />
                 </div>
@@ -49,8 +63,8 @@ export const ImageCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="left-0 md:left-4 transition-all duration-300 hover:scale-110 hover:shadow-glow" />
-        <CarouselNext className="right-0 md:right-4 transition-all duration-300 hover:scale-110 hover:shadow-glow" />
+        <CarouselPrevious className="left-0 md:left-4 transition-all duration-300 hover:scale-110 hover:shadow-glow bg-card/80 backdrop-blur-sm" />
+        <CarouselNext className="right-0 md:right-4 transition-all duration-300 hover:scale-110 hover:shadow-glow bg-card/80 backdrop-blur-sm" />
       </Carousel>
     </div>
   );
